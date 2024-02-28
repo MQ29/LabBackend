@@ -22,6 +22,35 @@ public class HomeController : Controller
     {
         return $"x={x}, counter{counter}";
     }
+
+    [HttpPost]
+    public string Create(string name, int age)
+    {
+        return $"$name={name}, age={age}";
+    }
+
+    [HttpGet("{id}")]
+    public Book FindBook(int id)
+    {
+        return new Book()
+        {
+            Id = id,
+            Title = "Atlas Shrugged",
+            Pages = 123
+        };
+    }
+
+    [HttpPost]
+    public Book CreateBook([FromBody] Book book)
+    {
+        Random random = new Random();
+        return new Book()
+        {
+            Id = random.Next(100),
+            Title = book.Title,
+            Pages = book.Pages
+        };
+    }
     
     public IActionResult Privacy()
     {
@@ -32,5 +61,13 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+    
+    public class Book
+    {
+        public string Title { get; set; }
+        public int Id { get; set; }
+        public int Pages { get; set; }
+
     }
 }
