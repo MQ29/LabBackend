@@ -18,6 +18,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public string Search(string x, int counter)
+    {
+        return $"x={x}, counter{counter}";
+    }
+    
     public IActionResult Privacy()
     {
         return View();
